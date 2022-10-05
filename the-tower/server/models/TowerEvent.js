@@ -4,10 +4,10 @@ import { SCHEMA_OPTIONS, ObjectId } from "../db/DbUtils.js"
 export const TowerEventSchema = new Schema({
   creatorId: { type: ObjectId, required: true, ref: 'Account' },
   name: { type: String, required: true },
-  description: { type: String, required: true, maxlength: 500 },
+  description: { type: String, required: true },
   coverImg: { type: String, required: true },
   location: { type: String, required: true },
-  capacity: { type: Number, required: true },
+  capacity: { type: Number, required: true, default: 0 },
   startDate: { type: Date, required: true },
   isCanceled: { type: Boolean, default: false },
   type: { type: String, enum: ['concert', 'convention', 'sport', 'digital'] }

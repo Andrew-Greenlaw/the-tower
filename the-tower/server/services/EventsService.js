@@ -2,9 +2,6 @@ import { dbContext } from "../db/DbContext.js"
 import { BadRequest, Forbidden } from "../utils/Errors.js"
 
 class EventsService {
-  async getEventTicketsByEventId(eventId) {
-    throw new Error("Method not implemented.")
-  }
   async getAllEvents(query) {
     const events = await dbContext.Events.find({ isCanceled: false, ...query }).populate('creator', 'name picture')
     return events
@@ -27,6 +24,7 @@ class EventsService {
     if (userInfo.id != event.creatorId.toString()) {
       throw new Forbidden('Go away this is not your event to edit')
     }
+    if (event.isCanceled) { throw new BadRequest('this event is already canceled') }
     event.name = eventData.name || event.name
     event.description = eventData.description || event.description
     await event.save()
@@ -41,7 +39,7 @@ class EventsService {
     //TODO
     // figure out how to delete instead of cancel if no on has bought tickets
     event.isCanceled = true
-    await event.save()
+    event.save()
     return event
   }
 }

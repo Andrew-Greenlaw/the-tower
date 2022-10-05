@@ -1,5 +1,7 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
+import { commentsService } from "../services/CommentsService.js";
 import { eventsService } from "../services/EventsService.js";
+import { ticketsService } from "../services/TicketsService.js";
 import BaseController from "../utils/BaseController.js";
 
 export class EventsController extends BaseController {
@@ -9,19 +11,27 @@ export class EventsController extends BaseController {
       .get('', this.getAllEvents)
       .get('/:id', this.getEventById)
       .use(Auth0Provider.getAuthorizedUserInfo)
-      .get('/:eventId/tickets', this.getEventTickets)
+      .get('/:id/tickets', this.getEventTicketsByEventId)
+      .get('/:id/comments', this.getEventCommentsByEventId)
       .post('', this.createEvent)
       .put('/:id', this.editEvent)
       .delete('/:id', this.archiveEvent)
   }
-  async getEventTickets(req, res, next) {
+  async getEventCommentsByEventId(req, res, next) {
     try {
-      const tickets = await eventsService.getEventTicketsByEventId(req.params.eventId)
-      res.send
+      const comments = await commentsService.getCommentsbyEventId(req.params.id)
+      res.send(comments)
     } catch (error) {
       next(error)
     }
-    throw new Error("Method not implemented.");
+  }
+  async getEventTicketsByEventId(req, res, next) {
+    try {
+      const tickets = await ticketsService.getEventTicketsByEventId(req.params.id)
+      res.send(tickets)
+    } catch (error) {
+      next(error)
+    }
   }
   async archiveEvent(req, res, next) {
     try {
