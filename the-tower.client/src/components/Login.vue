@@ -1,41 +1,30 @@
 <template>
   <span class="navbar-text">
-    <button
-      class="btn selectable text-success lighten-30 text-uppercase my-2 my-lg-0"
-      @click="login"
-      v-if="!user.isAuthenticated"
-    >
+    <button class="btn selectable text-success lighten-30 text-uppercase my-2 my-lg-0" @click="login"
+      v-if="!user.isAuthenticated">
       Login
     </button>
 
     <div class="dropdown my-2 my-lg-0" v-else>
-      <div
-        class="dropdown-toggle selectable"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
-        id="authDropdown"
-      >
-        <div v-if="account.picture || user.picture">
-          <img
-            :src="account.picture || user.picture"
-            alt="account photo"
-            height="40"
-            class="rounded"
-          />
+      <div class="dropdown-toggle selectable" data-bs-toggle="dropdown" aria-expanded="false" id="authDropdown">
+        <div class="d-flex justify-content-center" v-if="account.picture || user.picture">
+          <img :src="account.picture || user.picture" alt="account photo" height="40" class="rounded" />
+        </div>
+        <div>
           <span class="mx-3 text-success lighten-30">{{ account.name || user.name }}</span>
         </div>
       </div>
       <div class="dropdown-menu p-0 list-group w-100" aria-labelledby="authDropdown">
-        <router-link :to="{ name: 'Account' }">
-          <div class="list-group-item list-group-item-action hoverable">
-            Manage Account
-          </div>
-        </router-link>
         <div class="list-group-item list-group-item-action hoverable text-danger" @click="logout">
           <i class="mdi mdi-logout"></i>
           logout
         </div>
       </div>
+      <router-link :to="{ name: 'Account' }">
+        <div class="btn text-success lighten-30 selectable text-uppercase">
+          Account
+        </div>
+      </router-link>
     </div>
   </span>
 </template>

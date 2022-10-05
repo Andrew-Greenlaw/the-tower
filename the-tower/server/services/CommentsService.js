@@ -3,6 +3,20 @@ import { BadRequest } from "../utils/Errors.js"
 import { eventsService } from "./EventsService.js"
 
 class CommentsService {
+  async removeComment(id, userInfo) {
+    const comment = await dbContext.Comments.findById(id).populate('creatorId', 'name picture')
+    if (!comment) {
+      throw new BadRequest('Invalid or Bad Comment Id')
+    }
+    // @ts-ignore
+    if (comment.creatorId != userInfo.id) {
+      throw new BadRequest('Hey thats not your comment GETT')
+    }
+    // @ts-ignore
+    await comment.remove()
+    // @ts-ignore
+    await comment.save()
+  }
   async getCommentsbyEventId(eventId) {
     const comments = await dbContext.Comments.find({ eventId }).populate('creator', 'name picture')
     return comments

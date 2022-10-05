@@ -43,6 +43,9 @@ class TicketsService {
     if (event.isCanceled) {
       throw new BadRequest('The Event has been canceled')
     }
+    if (event.capacity === 0) {
+      throw new BadRequest('There is not any more availible tickets for this event')
+    }
     const hasTicket = await this.getTicketForEvent(eventId, accountId)
     if (hasTicket) {
       return hasTicket

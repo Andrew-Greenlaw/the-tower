@@ -39,7 +39,7 @@ class EventsService {
     //TODO
     // figure out how to delete instead of cancel if no on has bought tickets
     event.isCanceled = true
-    event.save()
+    await event.save()
     return event
   }
 }

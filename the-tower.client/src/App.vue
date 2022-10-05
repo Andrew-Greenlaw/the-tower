@@ -1,9 +1,18 @@
 <template>
   <header>
-    <Navbar />
+    <h1>TOWER</h1>
   </header>
   <main>
-    <router-view />
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-10">
+          <router-view />
+        </div>
+        <div class="col-md-2">
+          <Navbar />
+        </div>
+      </div>
+    </div>
   </main>
   <footer>
     <div class="bg-dark text-light text-center p-4">
