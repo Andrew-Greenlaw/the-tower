@@ -9,7 +9,36 @@ export class EventsController extends BaseController {
       .get('', this.getAllEvents)
       .get('/:id', this.getEventById)
       .use(Auth0Provider.getAuthorizedUserInfo)
+      .get('/:eventId/tickets', this.getEventTickets)
       .post('', this.createEvent)
+      .put('/:id', this.editEvent)
+      .delete('/:id', this.archiveEvent)
+  }
+  async getEventTickets(req, res, next) {
+    try {
+      const tickets = await eventsService.getEventTicketsByEventId(req.params.eventId)
+      res.send
+    } catch (error) {
+      next(error)
+    }
+    throw new Error("Method not implemented.");
+  }
+  async archiveEvent(req, res, next) {
+    try {
+      const event = await eventsService.archiveEvent(req.params.id, req.userInfo)
+      res.send(event)
+    } catch (error) {
+      next(error)
+    }
+  }
+  async editEvent(req, res, next) {
+    try {
+      req.body.id = req.params.id
+      const event = await eventsService.editEvent(req.body, req.userInfo)
+      res.send(event)
+    } catch (error) {
+      next(error)
+    }
   }
   async getEventById(req, res, next) {
     try {

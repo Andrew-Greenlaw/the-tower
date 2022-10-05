@@ -3,8 +3,8 @@ import { ObjectId, SCHEMA_OPTIONS } from "../db/DbUtils.js";
 
 export const TicketSchema = new Schema({
 
-  eventId: { type: ObjectId, required: true },
-  accountId: { type: ObjectId, required: true }
+  eventId: { type: ObjectId, required: true, ref: 'Event' },
+  accountId: { type: ObjectId, required: true, ref: 'Account' }
 
 }, SCHEMA_OPTIONS)
 
