@@ -5,23 +5,15 @@
       <!-- TODO make the text shadow for all over the image text -->
       <div class="d-flex justify-content-end">
         <!-- TODO change this to a dropstart from bootstrap -->
-        <div class="dropdown my-2 my-lg-0">
-          <div class="dropdown-toggle selectable" data-bs-toggle="dropdown" aria-expanded="false" id="editDropdown">
-            <button class="btn rounded text-light">...</button>
-          </div>
-          <div class="dropdown-menu p-0 list-group w-100" aria-labelledby="editDropdown">
-            <div class="list-group-item list-group-item-action hoverable text-dark" @click="cancelEvent()">
-              <i class="mdi mdi-trash"></i>
-              Cancel Event
-            </div>
-          </div>
-        </div>
+        <button class=" btn text-light selectable" @click="cancelEvent()" v-if="account.id == event.creatorId">
+          <i class="mdi mdi-close-thick"></i>
+        </button>
       </div>
       <div class="event-details d-flex">
         <div class="event-img">
           <img :src="event.coverImg" alt="Event Photo missing" class="img-fluid">
         </div>
-        <div class="event-text px-4 d-flex flex-column justify-content-between">
+        <div class="event-text px-4 d-flex flex-column justify-content-between flex-grow-1">
           <div>
             <div class="d-flex justify-content-between">
               <div class="mb-4">
@@ -30,7 +22,6 @@
               </div>
               <div>
                 <h4>{{event.startDate}}</h4>
-                <h5>starts at this time</h5>
               </div>
             </div>
             <div>
@@ -46,8 +37,8 @@
               <button class="btn btn-warning" @click="createTicket()"
                 v-if="!event.isCanceled && !hasTicket && event.capacity != 0">Attent <i
                   class="mdi mdi-human-greeting"></i></button>
-              <button class="btn btn-danger" @click="removeTicket()" v-else-if="hasTicket"> <i
-                  class="mdi mdi-run-fast"></i></button>
+              <button class="btn btn-danger" disabled v-else-if="hasTicket">You are Attending <i
+                  class="mdi mdi-human"></i></button>
               <button class="btn btn-info" :disabled="event.capacity == 0" v-else>
                 SOLD OUT <i class="mdi mdi-human-walker"></i></button>
             </div>
@@ -59,9 +50,10 @@
 </template>
 <script>
 import { computed } from '@vue/reactivity';
+// import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { AppState } from '../AppState.js';
-import { Event } from '../models/Event.js';
+import { TowerEvent } from '../models/Event.js';
 import { AuthService } from '../services/AuthService.js';
 import { eventsService } from '../services/EventsService.js';
 import { ticketsService } from '../services/TicketsService.js'
@@ -70,15 +62,22 @@ import Pop from '../utils/Pop.js';
 export default {
   props: {
     event: {
-      type: Event,
+      type: Object,
+      required: true
+    },
+    tickets: {
+      type: Object,
       required: true
     }
   },
   setup() {
     const route = useRoute()
+    // onMounted(() => { })
     return {
-      event: computed(() => AppState.aciveEvent),
+      event: computed(() => AppState.activeEvent),
+      tickets: computed(() => AppState.tickets),
       hasTicket: computed(() => AppState.tickets.find(t => t.accountId == AppState.account.id)),
+      account: computed(() => AppState.account),
       async createTicket() {
         try {
           if (!AppState.account.id) {
@@ -94,7 +93,7 @@ export default {
         try {
           const yes = await Pop.confirm('Are you sure you want to sell your Ticket?')
           if (!yes) { return }
-          const ticket = AppState.tickets.find(t => t.accountId == AppState.account.id && t.eventId == AppState.aciveEvent.id)
+          const ticket = AppState.tickets.find(t => t.accountId == AppState.account.id && t.eventId == AppState.activeEvent.id)
           await ticketsService.removeTicket(ticket.id)
           Pop.success('I guess you can leave...')
         } catch (error) {
@@ -102,7 +101,14 @@ export default {
         }
       },
       async cancelEvent() {
-        await eventsService.canceleEvent()
+        try {
+          const yes = await Pop.confirm('Are you sure you want to cancel this event?')
+          if (!yes) { return }
+          await eventsService.canceleEvent(route.params.id)
+          Pop.success('Event has been canceled')
+        } catch (error) {
+          Pop.error('[Cancel This event]')
+        }
       }
     }
   }
@@ -123,6 +129,8 @@ export default {
 img {
   max-height: 45vh;
   min-width: 45vh;
+  max-width: 45vh;
+
 }
 
 .img {

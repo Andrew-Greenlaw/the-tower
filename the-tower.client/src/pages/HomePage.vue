@@ -2,15 +2,16 @@
   <div class="row">
     <div class="col-md-11">
       <div>
+
         <!-- TODO get search function to not explode -->
         <!-- <input type="text" class="form-control" placeholder="Search..." v-model="editable"> -->
       </div>
       <div class="d-flex justify-content-around">
-        <button class="btn btn-success">All</button>
-        <button class="btn btn-success">Concert</button>
-        <button class="btn btn-success">Convention</button>
-        <button class="btn btn-success">Sport</button>
-        <button class="btn btn-success">Digital</button>
+        <button @click="getEventsByType('')" class="btn btn-success">All</button>
+        <button @click="getEventsByType('concert')" class="btn btn-success">Concert</button>
+        <button @click="getEventsByType('convention')" class="btn btn-success">Convention</button>
+        <button @click="getEventsByType('sport')" class="btn btn-success">Sport</button>
+        <button @click="getEventsByType('digital')" class="btn btn-success">Digital</button>
       </div>
     </div>
   </div>
@@ -45,13 +46,13 @@ export default {
       // editable,
       events: computed(() => AppState.events),
       // events: computed(() => AppState.events.filter(e => e.name.toUpperCase().includes(editable.value.toUppercase()))),
-      // async getEventsByType(type) {
-      //   try {
-      //     await eventsService.getEvents(type)
-      //   } catch (error) {
-      //     Pop.error(error, '[GetEventsByType]')
-      //   }
-      // }
+      async getEventsByType(type) {
+        try {
+          await eventsService.getEvents(type)
+        } catch (error) {
+          Pop.error(error, '[GetEventsByType]')
+        }
+      }
     };
   },
   components: { EventCard }

@@ -22,7 +22,7 @@
       </div>
     </div>
     <router-link :to="{ name: 'Account' }">
-      <div class="btn text-success lighten-30 selectable text-uppercase m">
+      <div class="btn text-success lighten-30 selectable text-uppercase m" v-if="user.isAuthenticated">
         Account
       </div>
     </router-link>

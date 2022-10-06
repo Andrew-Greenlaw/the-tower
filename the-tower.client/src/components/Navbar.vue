@@ -15,7 +15,8 @@
           </router-link>
         </li>
         <li>
-          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newEventModal"
+            v-if="user.isAuthenticated">
             NEW EVENT
           </button>
         </li>
@@ -25,10 +26,14 @@
 </template>
 
 <script>
+import { computed } from '@vue/reactivity';
+import { AppState } from '../AppState.js';
 import Login from './Login.vue'
 export default {
   setup() {
-    return {}
+    return {
+      user: computed(() => AppState.user)
+    }
   },
   components: { Login }
 }

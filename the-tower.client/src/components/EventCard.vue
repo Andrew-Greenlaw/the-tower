@@ -1,7 +1,7 @@
 <template>
   <div class="col-md-3 event-card my-3">
     <router-link :to="{name: 'Event', params: {id: event.id}}">
-      <div class="card event-body" :style="{backgroundImage: `url(${event.coverImg})`}">
+      <div class="card event-body bg-dark" :style="{backgroundImage: `url(${event.coverImg})`}">
         <h4>{{event.name}}</h4>
         <h4>{{event.location}}</h4>
         <h4>{{event.startDate}}</h4>
@@ -13,11 +13,11 @@
 
 
 <script>
-import { Event } from '../models/Event.js';
+import { TowerEvent } from '../models/Event.js';
 
 export default {
   props: {
-    event: { type: Event, required: true }
+    event: { type: TowerEvent, required: true }
   },
   setup() {
     return {}

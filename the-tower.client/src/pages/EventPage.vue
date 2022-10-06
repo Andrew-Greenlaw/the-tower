@@ -1,9 +1,9 @@
 <template>
   <div class="row event-page p-4">
-    <EventDetail :event="event" />
-    <div class="col-11 bg-secondary">
-      <div>
-        <img src="" alt="">
+    <EventDetail v-if="towerEvent" :event="towerEvent" :tickets="tickets" />
+    <div class="col-12 bg-secondary d-flex">
+      <div v-for="t in tickets">
+        <img :src="t.profile.picture" :alt="t.profile.name">
       </div>
     </div>
 
@@ -24,17 +24,29 @@ export default {
     const route = useRoute();
     async function getEventById() {
       try {
+
         await eventsService.getEventById(route.params.id);
       }
       catch (error) {
         Pop.error("[GetEvent]", error);
       }
     }
+    async function getTickets() {
+      try {
+        await eventsService.getTickets(route.params.id)
+      } catch (error) {
+        Pop.error(error, '[GetTickets]')
+      }
+    }
     onMounted(() => {
       getEventById();
+      getTickets()
+      // getComments()
     });
     return {
-      event: computed(() => AppState.aciveEvent)
+      towerEvent: computed(() => AppState.activeEvent),
+      tickets: computed(() => AppState.tickets),
+      // comments: computed(()=> AppState.comments),
     };
   },
   components: { EventDetail }
@@ -42,5 +54,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+img {
+  border-radius: 50%;
+  height: 5vh;
+}
 </style>

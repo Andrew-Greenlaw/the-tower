@@ -55,7 +55,7 @@ class TicketsService {
     await ticket.populate('event')
 
     // @ts-ignore
-    event.capacity--
+    event.capacity -= 1
     await event.save()
     // find the event that i am creating a ticket for...think about where you might have access to the event within this function
     return ticket
