@@ -37,7 +37,7 @@ class EventsService {
       throw new Forbidden('you did not create this event go away!')
     }
     //TODO
-    // figure out how to delete instead of cancel if no on has bought tickets
+    // figure out how to delete instead of cancel if no one has bought tickets
     event.isCanceled = true
     await event.save()
     return event

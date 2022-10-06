@@ -1,19 +1,23 @@
 <template>
-  <nav class="navbar navbar-dark bg-dark px-3">
-    <router-link class="d-flex" :to="{ name: 'Home' }">
-    </router-link>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+  <nav class="d-flex justify-content-center px-3">
+    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
       aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
+    </button> -->
+    <!-- class="collapse navbar-collapse" id="navbarText" -->
+    <div class="d-flex flex-column">
       <!-- LOGIN COMPONENT HERE -->
       <Login />
-      <ul class="navbar-nav me-auto">
+      <ul class="navbar-nav d-flex justify-content-center">
         <li>
-          <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
-            About
+          <router-link :to="{ name: 'Home' }" class="btn text-success lighten-30 selectable text-uppercase">
+            Home
           </router-link>
+        </li>
+        <li>
+          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            NEW EVENT
+          </button>
         </li>
       </ul>
     </div>
@@ -43,5 +47,10 @@ a:hover {
   border-bottom: 2px solid var(--bs-success);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+
+li {
+  text-align: center;
+  margin-bottom: .5rem;
 }
 </style>

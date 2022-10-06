@@ -1,5 +1,5 @@
 <template>
-  <span class="navbar-text">
+  <div class="text-center">
     <button class="btn selectable text-success lighten-30 text-uppercase my-2 my-lg-0" @click="login"
       v-if="!user.isAuthenticated">
       Login
@@ -7,12 +7,12 @@
 
     <div class="dropdown my-2 my-lg-0" v-else>
       <div class="dropdown-toggle selectable" data-bs-toggle="dropdown" aria-expanded="false" id="authDropdown">
-        <div class="d-flex justify-content-center" v-if="account.picture || user.picture">
-          <img :src="account.picture || user.picture" alt="account photo" height="40" class="rounded" />
+        <div class="d-flex justify-content-center mb-4" v-if="account.picture || user.picture">
+          <img :src="account.picture || user.picture" alt="account photo" height="100" class="rounded" />
         </div>
-        <div>
+        <!-- <div>
           <span class="mx-3 text-success lighten-30">{{ account.name || user.name }}</span>
-        </div>
+        </div> -->
       </div>
       <div class="dropdown-menu p-0 list-group w-100" aria-labelledby="authDropdown">
         <div class="list-group-item list-group-item-action hoverable text-danger" @click="logout">
@@ -20,13 +20,13 @@
           logout
         </div>
       </div>
-      <router-link :to="{ name: 'Account' }">
-        <div class="btn text-success lighten-30 selectable text-uppercase">
-          Account
-        </div>
-      </router-link>
     </div>
-  </span>
+    <router-link :to="{ name: 'Account' }">
+      <div class="btn text-success lighten-30 selectable text-uppercase m">
+        Account
+      </div>
+    </router-link>
+  </div>
 </template>
 
 <script>
@@ -63,5 +63,9 @@ export default {
 
 .hoverable {
   cursor: pointer;
+}
+
+.m {
+  margin-bottom: .5rem;
 }
 </style>
