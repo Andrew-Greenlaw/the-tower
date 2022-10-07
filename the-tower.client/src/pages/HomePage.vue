@@ -1,8 +1,12 @@
 <template>
-  <div class="row">
-    <div class="col-md-11">
+  <div class="row align-items-center">
+    <div class="col-md-12">
       <div>
-
+        <img src="..\assets\img\unsplash_kcJsQ3PJrYU.png" alt="" class="img-fluid">
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div>
         <!-- TODO get search function to not explode -->
         <!-- <input type="text" class="form-control" placeholder="Search..." v-model="editable"> -->
       </div>
@@ -21,7 +25,7 @@
 </template>
 
 <script>
-import { computed, ref } from '@vue/reactivity';
+import { computed } from '@vue/reactivity';
 import { onMounted } from 'vue';
 import { AppState } from '../AppState.js';
 import { eventsService } from '../services/EventsService.js';
@@ -30,7 +34,6 @@ import EventCard from '../components/EventCard.vue';
 
 export default {
   setup() {
-    // const editable = ref('')
     async function getEvents() {
       try {
         await eventsService.getEvents();

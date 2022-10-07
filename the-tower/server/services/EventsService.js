@@ -1,5 +1,6 @@
 import { dbContext } from "../db/DbContext.js"
 import { BadRequest, Forbidden } from "../utils/Errors.js"
+import { ticketsService } from "./TicketsService.js"
 
 class EventsService {
   async getAllEvents(query) {
@@ -36,8 +37,12 @@ class EventsService {
     if (event.creatorId.toString() != userInfo.id) {
       throw new Forbidden('you did not create this event go away!')
     }
-    //TODO
-    // figure out how to delete instead of cancel if no one has bought tickets
+    // const tickets = await ticketsService.getEventTicketsByEventId(id)
+    // if (!tickets.length) {
+    //   event.remove()
+    //   await event.save()
+    //   return event
+    // }
     event.isCanceled = true
     await event.save()
     return event

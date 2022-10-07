@@ -1,13 +1,16 @@
 <template>
-  <div class="col-12 p-0 img mb-4" :style="{backgroundImage: `url(${event.coverImg})`}">
-    <div class="back p-3 pb-5 ">
+  <div class="col-12 p-0 img mb-5" :style="{backgroundImage: `url(${event.coverImg})`}">
+    <div class="back p-3 ">
       <!-- TODO make it so you can only see the delete if you are the owner -->
       <!-- TODO make the text shadow for all over the image text -->
-      <div class="d-flex justify-content-end">
+      <div class="d-flex justify-content-end" v-if="account.id == event.creatorId && !event.isCanceled">
         <!-- TODO change this to a dropstart from bootstrap -->
-        <button class=" btn text-light selectable" @click="cancelEvent()" v-if="account.id == event.creatorId">
+        <button class=" btn text-light selectable" @click="cancelEvent()">
           <i class="mdi mdi-close-thick"></i>
         </button>
+      </div>
+      <div class="d-flex justify-content-center bg-danger mb-3" v-else-if="event.isCanceled">
+        <h2>Event Canceled</h2>
       </div>
       <div class="event-details d-flex">
         <div class="event-img">
@@ -40,7 +43,7 @@
               <button class="btn btn-danger" disabled v-else-if="hasTicket">You are Attending <i
                   class="mdi mdi-human"></i></button>
               <button class="btn btn-info" :disabled="event.capacity == 0" v-else>
-                SOLD OUT <i class="mdi mdi-human-walker"></i></button>
+                NO MORE TICKETS <i class="mdi mdi-human-walker"></i></button>
             </div>
           </div>
         </div>
@@ -50,10 +53,8 @@
 </template>
 <script>
 import { computed } from '@vue/reactivity';
-// import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { AppState } from '../AppState.js';
-import { TowerEvent } from '../models/Event.js';
 import { AuthService } from '../services/AuthService.js';
 import { eventsService } from '../services/EventsService.js';
 import { ticketsService } from '../services/TicketsService.js'
@@ -72,7 +73,6 @@ export default {
   },
   setup() {
     const route = useRoute()
-    // onMounted(() => { })
     return {
       event: computed(() => AppState.activeEvent),
       tickets: computed(() => AppState.tickets),
@@ -89,22 +89,11 @@ export default {
           Pop.error('[CreateTicket]', error)
         }
       },
-      async removeTicket() {
-        try {
-          const yes = await Pop.confirm('Are you sure you want to sell your Ticket?')
-          if (!yes) { return }
-          const ticket = AppState.tickets.find(t => t.accountId == AppState.account.id && t.eventId == AppState.activeEvent.id)
-          await ticketsService.removeTicket(ticket.id)
-          Pop.success('I guess you can leave...')
-        } catch (error) {
-          Pop.error('[RemoveTicket]', error)
-        }
-      },
       async cancelEvent() {
         try {
           const yes = await Pop.confirm('Are you sure you want to cancel this event?')
           if (!yes) { return }
-          await eventsService.canceleEvent(route.params.id)
+          await eventsService.cancelEvent(route.params.id)
           Pop.success('Event has been canceled')
         } catch (error) {
           Pop.error('[Cancel This event]')
@@ -122,14 +111,17 @@ export default {
   transition: all 0.15s linear;
 }
 
+.event-text {
+  max-width: 70%;
+}
+
 .dropdown-menu.show {
   transform: scale(1);
 }
 
 img {
-  max-height: 45vh;
-  min-width: 45vh;
-  max-width: 45vh;
+  max-width: 100%;
+  height: auto;
 
 }
 

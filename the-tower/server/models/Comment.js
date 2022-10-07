@@ -3,8 +3,8 @@ import { ObjectId, SCHEMA_OPTIONS } from "../db/DbUtils.js";
 
 
 export const CommentSchema = new Schema({
-  creatorId: { type: ObjectId, required: true },
-  eventId: { type: ObjectId, required: true },
+  creatorId: { type: ObjectId, required: true, ref: 'Account' },
+  eventId: { type: ObjectId, required: true, ref: 'Event' },
   body: { type: String, required: true },
 }, SCHEMA_OPTIONS)
 
@@ -13,4 +13,11 @@ CommentSchema.virtual('creator', {
   foreignField: '_id',
   justOne: true,
   ref: 'Account'
+})
+
+CommentSchema.virtual('event', {
+  localField: 'eventId',
+  foreignField: '_id',
+  justOne: true,
+  ref: 'Event'
 })

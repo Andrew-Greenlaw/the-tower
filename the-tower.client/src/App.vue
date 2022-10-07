@@ -1,16 +1,20 @@
 <template>
   <main class="container-fluid bg-dark">
     <div class="row">
-      <div class="col-md-11">
+      <div class="col-lg-11">
         <div class="row">
           <div class="col-md-12">
-            <h1>TOWER</h1>
+            <router-link aria-label="Home" class="text-light" :to="{ name: 'Home' }">
+              <div class="p-3">
+                <img class="tower-img" src="logo.png" alt="Tower Logo">
+              </div>
+            </router-link>
           </div>
         </div>
         <router-view />
       </div>
       <!-- TODO make the background to the transparent thing -->
-      <div class="col-md-1 pt-5 nav-component bg-secondary">
+      <div class="col-lg-1 pt-5 nav-component bg-secondary">
         <Navbar />
       </div>
     </div>
@@ -46,5 +50,13 @@ export default {
   height: 100vh;
   // background: rgb(58, 60, 66);
   // background: linear-gradient(180deg, rgba(58, 60, 66, 0.975) 29%, rgba(58, 60, 66, 0.8714285714285714) 66%, rgba(58, 60, 66, 0.6857142857142857) 100%);
+}
+
+.tower-img {
+  height: 5vh;
+}
+
+a {
+  color: #e9ecef;
 }
 </style>
