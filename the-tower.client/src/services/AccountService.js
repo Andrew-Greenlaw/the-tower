@@ -14,7 +14,7 @@ class AccountService {
   }
   async getEventTickets() {
     const res = await api.get('/account/tickets')
-    console.log(res.data)
+    // console.log(res.data)
     AppState.tickets = res.data.map(t => new Ticket(t))
   }
 }

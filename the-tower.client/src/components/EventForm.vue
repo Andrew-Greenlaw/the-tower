@@ -31,10 +31,17 @@
         <label for="capacity" class="form-label">Capacity</label>
         <input type="number" class="form-control" id="capacity" v-model="editable.capacity" placeholder="200" required>
       </div>
-      <div class="mb-3">
+      <!-- <div class="mb-3">
         <input type="text" class="form-control" id="type" v-model="editable.type" placeholder="Type"
           aria-label="Type input">
-      </div>
+      </div> -->
+      <select class="form-select form-select mb-3" v-model="editable.type" aria-label=".form-select">
+        <option selected>Select a Type</option>
+        <option value="concert">Concert</option>
+        <option value="convention">Convention</option>
+        <option value="sport">Sport</option>
+        <option value="digital">Digital</option>
+      </select>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
         <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Create">Create</button>
