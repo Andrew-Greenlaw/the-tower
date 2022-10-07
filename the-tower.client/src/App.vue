@@ -6,7 +6,7 @@
           <div class="col-md-12">
             <router-link aria-label="Home" class="text-light" :to="{ name: 'Home' }">
               <div class="p-3">
-                <img class="tower-img" src="logo.png" alt="Tower Logo">
+                <img class="tower-img" src="logo.png" alt="Tower Logo" aria-label="Go To Home Page" title="Tower Logo">
               </div>
             </router-link>
           </div>

@@ -1,8 +1,8 @@
 <template>
   <div class="row align-items-center">
-    <div class="col-md-12">
+    <div class="col-md-12 d-flex justify-content-center">
       <div>
-        <img src="..\assets\img\unsplash_kcJsQ3PJrYU.png" alt="" class="img-fluid">
+        <img src="..\assets\img\Banner.png" alt="default home img" class="img-fluid" title="Hello there">
       </div>
     </div>
     <div class="col-md-12">
@@ -13,13 +13,13 @@
       <div class="d-flex justify-content-around bg-secondary my-4 p-2 rounded">
         <button @click="getEventsByType('')" class="btn text-light selectable" aria-label="Filter by All">All</button>
         <button @click="getEventsByType('concert')" class="btn text-light selectable"
-          aria-label="Filter by Concert ">Concert</button>
+          aria-label="Filter by Concert">Concert</button>
         <button @click="getEventsByType('convention')" class="btn text-light selectable"
           aria-label="Filter by Convention">Convention</button>
         <button @click="getEventsByType('sport')" class="btn text-light selectable"
           aria-label="Filter by Sport">Sport</button>
         <button @click="getEventsByType('digital')" class="btn text-light selectable"
-          aria-label="Filter by Digital ">Digital</button>
+          aria-label="Filter by Digital">Digital</button>
       </div>
     </div>
   </div>

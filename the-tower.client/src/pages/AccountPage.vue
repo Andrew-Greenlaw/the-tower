@@ -1,16 +1,16 @@
 <template>
   <div class="row">
     <div class="col-12 about text-center mb-5">
-      <img class="rounded" :src="account.picture" alt="" />
+      <img class="rounded" :src="account.picture" alt="profile picture" :title="account.email" />
       <p>{{ account.email }}</p>
     </div>
   </div>
   <div class="row justify-content-center">
     <!-- <TicketCard v-for="t in tickets" :key="t.id" :ticket="t" /> -->
-    <div class="col-md-8 p-0 d-flex bg-secondary mb-4" v-for="t in tickets" :key="t.id" :ticket="t">
+    <div class="col-md-8 p-0 d-flex bg-secondary mb-4 rounded ticket" v-for="t in tickets" :key="t.id" :ticket="t">
       <div class="ticket-img">
         <router-link :to="{name: 'Event', params: {id: t.event.id}}">
-          <img :src="t.event.coverImg" alt="The Event Image">
+          <img :src="t.event.coverImg" alt="The Event Image" :title="t.event.name">
         </router-link>
       </div>
       <div class="p-4 d-flex flex-column justify-content-between flex-grow-1">
@@ -20,7 +20,7 @@
           <p>{{t.event.startDate}}</p>
         </div>
         <div class="d-flex justify-content-end">
-          <button @click="removeTicket(t.id)" class="btn btn-danger">Return Ticket</button>
+          <button @click="removeTicket(t.id)" class="btn btn-danger" aria-label="Delete Ticket">Return Ticket</button>
         </div>
       </div>
       <div class="d-flex align-items-center">
@@ -36,9 +36,7 @@ import { computed, onMounted } from 'vue'
 import { AppState } from '../AppState'
 import { accountService } from '../services/AccountService.js'
 import { ticketsService } from '../services/TicketsService.js'
-import { logger } from '../utils/Logger.js'
 import Pop from '../utils/Pop.js'
-// import TicketCard from '../components/TicketCard.vue.jsx'
 export default {
   setup() {
     // async getMyCreatedEvents(){
@@ -69,8 +67,6 @@ export default {
           if (!yes) {
             return;
           }
-          // const ticket = AppState.tickets.find(t => t.accountId == AppState.account.id && t.eventId == AppState.activeEvent.id)
-          // logger.log(ticket);
           await ticketsService.removeTicket(id);
           Pop.success("You Have Returned Your Ticket");
         }
@@ -80,13 +76,18 @@ export default {
       }
     };
   },
-  // components: { TicketCard }
 }
 </script>
 
 <style scoped>
 .ticket-img {
   width: 30vh;
+  border-top-left-radius: 3rem;
+  border-bottom-left-radius: 3rem;
+}
+
+.ticket {
+  overflow: hidden;
 }
 
 img {

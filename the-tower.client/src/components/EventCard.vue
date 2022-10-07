@@ -2,7 +2,7 @@
   <div class="col-md-3 event-card my-3">
     <router-link :to="{name: 'Event', params: {id: event.id}}" aria-label="Go to this Event Page">
       <div class="card event-body bg-dark d-flex justify-content-end"
-        :style="{backgroundImage: `url(${event.coverImg})`}">
+        :style="{backgroundImage: `url(${event.coverImg})`}" :title="event.name">
         <div class="event-text text-shadow p-2">
           <div class="d-flex justify-content-between">
             <h5>{{event.name}}</h5>

@@ -3,10 +3,10 @@
     <form @submit.prevent="handleSubmit()">
       <div class="mb-3">
         <textarea type="text" class="form-control" id="body" v-model="editable.body" placeholder="body" rows="3"
-          required></textarea>
+          required aria-label="comment body"></textarea>
       </div>
       <div class="mb-3 d-flex justify-content-end">
-        <button type="submit" class="btn btn-success">Post</button>
+        <button type="submit" class="btn btn-success" aria-label="Post">Post</button>
       </div>
     </form>
   </div>

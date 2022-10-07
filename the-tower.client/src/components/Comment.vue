@@ -11,7 +11,7 @@
       <div>
         <button @click="removeComment()" class="btn selectable" aria-label="Delete this Comment?"
           v-if="comment.creatorId == account.id">
-          <i class="mdi mdi-close"></i>
+          <i class="mdi mdi-close" title="delete comment" aria-label="delete comment"></i>
         </button>
       </div>
     </div>

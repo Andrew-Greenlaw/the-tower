@@ -6,11 +6,12 @@
   <div class="modal-body text-dark">
     <form @submit.prevent="handleSubmit()">
       <div class="mb-3">
-        <input type="text" class="form-control" id="name" v-model="editable.name" placeholder="Name" required>
+        <input type="text" class="form-control" id="name" v-model="editable.name" placeholder="Name" required
+          aria-label="Name Input">
       </div>
       <div class="mb-3">
         <textarea type="text" class="form-control" id="description" v-model="editable.description"
-          placeholder="description" rows="3" required></textarea>
+          placeholder="description" rows="3" required aria-label="Description Input"></textarea>
       </div>
       <div class="mb-3">
         <label for="coverImg" class="form-label">CoverImg</label>
@@ -31,11 +32,12 @@
         <input type="number" class="form-control" id="capacity" v-model="editable.capacity" placeholder="200" required>
       </div>
       <div class="mb-3">
-        <input type="text" class="form-control" id="type" v-model="editable.type" placeholder="Type">
+        <input type="text" class="form-control" id="type" v-model="editable.type" placeholder="Type"
+          aria-label="Type input">
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Create</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Create">Create</button>
       </div>
     </form>
   </div>

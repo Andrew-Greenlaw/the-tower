@@ -1,10 +1,9 @@
 <template>
   <div class="text-center">
     <button class="btn selectable btn-success lighten-30 text-uppercase my-2 my-lg-0" @click="login"
-      v-if="!user.isAuthenticated">
+      v-if="!user.isAuthenticated" aria-label="Login button">
       Login
     </button>
-
     <div class="dropdown my-2 my-lg-0" v-else>
       <div>
         <div class="d-flex justify-content-center mb-3" v-if="account.picture || user.picture">
@@ -32,7 +31,7 @@
       </button>
     </div>
     <div>
-      <div class="btn text-danger" @click="logout" v-if="user.isAuthenticated">
+      <div class="btn text-danger" @click="logout" v-if="user.isAuthenticated" aria-label="Logout Button">
         <i class="mdi mdi-logout"></i>
         logout
       </div>

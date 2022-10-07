@@ -6,7 +6,8 @@
       <div class="d-flex justify-content-end"
         v-if="account.id == event.creatorId && !event.isCanceled && !event.capacity == 0">
         <!-- TODO change this to a dropstart from bootstrap -->
-        <button class=" btn text-light selectable" @click="cancelEvent()" aria-label="Cancel Event">
+        <button class=" btn text-light selectable" @click="cancelEvent()" aria-label="Cancel Event"
+          title="Cancel Event">
           <i class="mdi mdi-close-thick"></i>
         </button>
       </div>
@@ -122,6 +123,10 @@ export default {
   text-shadow: 1px 1px black, 0px 0px 5px rgb(83, 83, 83);
   font-weight: bold;
   letter-spacing: 0.08rem
+}
+
+.event-img {
+  max-width: 30%;
 }
 
 .event-text {
