@@ -1,12 +1,12 @@
 <template>
   <div class="row event-page px-4 justify-content-center">
-    <EventDetail v-if="towerEvent" :event="towerEvent" :tickets="tickets" />
-    <div class="col-12 bg-secondary d-flex mb-5 p-3">
-      <div v-for="t in tickets">
-        <img :src="t.profile.picture" :alt="t.profile.name" :title="t.profile.name">
+    <EventDetail v-if="towerEvent" :event="towerEvent" />
+    <div class="col-12 bg-secondary d-flex mb-5 p-3 rounded">
+      <div class="mx-1" v-for="t in tickets" :key="t.id" :tickets="t">
+        <img :src="t.profile?.picture" alt="profile image" :title="t.profile?.name">
       </div>
     </div>
-    <div class="col-8 bg-secondary p-4">
+    <div class="col-8 bg-secondary p-4 mb-5 rounded">
       <CommentForm />
       <Comment v-for="c in comments" :key="c.id" :comment="c" />
     </div>

@@ -8,6 +8,7 @@ import { ticketsService } from "./TicketsService.js"
 
 class EventsService {
   async getEvents(type = '') {
+    AppState.events = []
     let res
     if (type) {
       res = await api.get('/api/events', {
@@ -22,9 +23,10 @@ class EventsService {
     // console.log(res.data)
   }
   async getEventById(id) {
+    AppState.activeEvent = []
     const res = await api.get(`/api/events/${id}`)
     AppState.activeEvent = new TowerEvent(res.data)
-    logger.log('appstate active', AppState.activeEvent)
+    // logger.log('appstate active', AppState.activeEvent)
   }
   async createEvent(eventData) {
     const res = await api.post(`/api/events`, eventData)
@@ -37,7 +39,7 @@ class EventsService {
   }
   async cancelEvent(id) {
     await api.delete(`/api/events/${id}`)
-    console.log('is there any tickets?', AppState.tickets)
+    // console.log('is there any tickets?', AppState.tickets)
     // if (!AppState.tickets.length) {
     //   router.push({ name: 'Home' })
     //   return
@@ -45,12 +47,14 @@ class EventsService {
     AppState.activeEvent.isCanceled = true
   }
   async getTickets(id) {
+    // AppState.tickets = []
     const res = await api.get(`/api/events/${id}/tickets`)
     AppState.tickets = res.data.map(t => new Ticket(t))
   }
   async getComments(id) {
+    // AppState.comments = []
     const res = await api.get(`/api/events/${id}/comments`)
-    logger.log(res.data)
+    // logger.log(res.data)
     AppState.comments = res.data
   }
   async createComment(commentData) {

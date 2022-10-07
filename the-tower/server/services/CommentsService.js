@@ -22,10 +22,10 @@ class CommentsService {
     return comments
   }
   async createComment(commentData) {
-    const event = await eventsService.getEventById(commentData.eventId)
-    if (event.isCanceled) {
-      throw new BadRequest('this event has been Canceled.... You can no longer add comments')
-    }
+    // const event = await eventsService.getEventById(commentData.eventId)
+    // if (event.isCanceled) {
+    //   throw new BadRequest('this event has been Canceled.... You can no longer add comments')
+    // }
     // const hasTicket = await dbContext.Tickets.findOne({
     //   eventId: commentData.eventId,
     //   accountId: commentData.creatorId

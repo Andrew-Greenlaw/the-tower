@@ -6,7 +6,8 @@
     </div>
   </div>
   <div class="row justify-content-center">
-    <div class="col-md-8 p-0 d-flex bg-secondary mb-4" v-for="t in tickets" :key="t.id">
+    <!-- <TicketCard v-for="t in tickets" :key="t.id" :ticket="t" /> -->
+    <div class="col-md-8 p-0 d-flex bg-secondary mb-4" v-for="t in tickets" :key="t.id" :ticket="t">
       <div class="ticket-img">
         <router-link :to="{name: 'Event', params: {id: t.event.id}}">
           <img :src="t.event.coverImg" alt="The Event Image">
@@ -19,8 +20,7 @@
           <p>{{t.event.startDate}}</p>
         </div>
         <div class="d-flex justify-content-end">
-
-          <button @click="removeTicket()" class="btn btn-danger">Return Ticket</button>
+          <button @click="removeTicket(t.id)" class="btn btn-danger">Return Ticket</button>
         </div>
       </div>
       <div class="d-flex align-items-center">
@@ -36,7 +36,9 @@ import { computed, onMounted } from 'vue'
 import { AppState } from '../AppState'
 import { accountService } from '../services/AccountService.js'
 import { ticketsService } from '../services/TicketsService.js'
+import { logger } from '../utils/Logger.js'
 import Pop from '../utils/Pop.js'
+// import TicketCard from '../components/TicketCard.vue.jsx'
 export default {
   setup() {
     // async getMyCreatedEvents(){
@@ -48,31 +50,37 @@ export default {
     // },
     async function getEventTickets() {
       try {
-        await accountService.getEventTickets()
-      } catch (error) {
-        Pop.error('[GetAccountEvents]', error)
+        await accountService.getEventTickets();
+      }
+      catch (error) {
+        Pop.error("[GetAccountEvents]", error);
       }
     }
     onMounted(() => {
       // getMyCreatedEvents()
-      getEventTickets()
-    })
+      getEventTickets();
+    });
     return {
       account: computed(() => AppState.account),
       tickets: computed(() => AppState.tickets),
-      async removeTicket() {
+      async removeTicket(id) {
         try {
-          const yes = await Pop.confirm('Are you sure you want to sell your Ticket?')
-          if (!yes) { return }
-          const ticket = AppState.tickets.find(t => t.accountId == AppState.account.id && t.event.id == AppState.activeEvent.id)
-          await ticketsService.removeTicket(ticket.id)
-          Pop.success('You Have Returned Your Ticket')
-        } catch (error) {
-          Pop.error('[RemoveTicket]', error)
+          const yes = await Pop.confirm("Are you sure you want to sell your Ticket?");
+          if (!yes) {
+            return;
+          }
+          // const ticket = AppState.tickets.find(t => t.accountId == AppState.account.id && t.eventId == AppState.activeEvent.id)
+          // logger.log(ticket);
+          await ticketsService.removeTicket(id);
+          Pop.success("You Have Returned Your Ticket");
+        }
+        catch (error) {
+          Pop.error("[RemoveTicket]", error);
         }
       }
-    }
-  }
+    };
+  },
+  // components: { TicketCard }
 }
 </script>
 

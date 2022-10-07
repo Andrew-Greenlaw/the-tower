@@ -1,22 +1,31 @@
 <template>
-  <div class="col-12 p-0 img mb-5" :style="{backgroundImage: `url(${event.coverImg})`}">
-    <div class="back p-3 ">
+  <div class="col-12 p-0 img mb-5 rounded" :style="{backgroundImage: `url(${event.coverImg})`}">
+    <div class="back p-3 rounded">
       <!-- TODO make it so you can only see the delete if you are the owner -->
       <!-- TODO make the text shadow for all over the image text -->
-      <div class="d-flex justify-content-end" v-if="account.id == event.creatorId && !event.isCanceled">
+      <div class="d-flex justify-content-end"
+        v-if="account.id == event.creatorId && !event.isCanceled && !event.capacity == 0">
         <!-- TODO change this to a dropstart from bootstrap -->
-        <button class=" btn text-light selectable" @click="cancelEvent()">
+        <button class=" btn text-light selectable" @click="cancelEvent()" aria-label="Cancel Event">
           <i class="mdi mdi-close-thick"></i>
         </button>
       </div>
       <div class="d-flex justify-content-center bg-danger mb-3" v-else-if="event.isCanceled">
         <h2>Event Canceled</h2>
       </div>
+      <div class="d-flex justify-content-center bg-danger mb-3" v-else-if="event.capacity == 0">
+        <div>
+          <h2>No More Tickets</h2>
+        </div>
+        <button class=" btn text-dark selectable" @click="cancelEvent()" aria-label="Cancel Event">
+          <i class="mdi mdi-close-thick"></i>
+        </button>
+      </div>
       <div class="event-details d-flex">
         <div class="event-img">
-          <img :src="event.coverImg" alt="Event Photo missing" class="img-fluid">
+          <img :src="event.coverImg" alt="Event Photo missing" class="img-fluid" :title="event.name" />
         </div>
-        <div class="event-text px-4 d-flex flex-column justify-content-between flex-grow-1">
+        <div class="event-text px-4 d-flex flex-column justify-content-between flex-grow-1 text-shadow">
           <div>
             <div class="d-flex justify-content-between">
               <div class="mb-4">
@@ -25,6 +34,7 @@
               </div>
               <div>
                 <h4>{{event.startDate}}</h4>
+                <h5 class="text-end">{{event.type}}</h5>
               </div>
             </div>
             <div>
@@ -38,12 +48,12 @@
             <div>
               <!-- TODO make it so the capacity updates -->
               <button class="btn btn-warning" @click="createTicket()"
-                v-if="!event.isCanceled && !hasTicket && event.capacity != 0">Attent <i
+                v-if="!event.isCanceled && !hasTicket && event.capacity != 0" aria-label="Attend this event?">Attent <i
                   class="mdi mdi-human-greeting"></i></button>
-              <button class="btn btn-danger" disabled v-else-if="hasTicket">You are Attending <i
-                  class="mdi mdi-human"></i></button>
+              <button class="btn btn-danger" disabled v-else-if="hasTicket" aria-label="You are Allready Attending">You
+                are Attending <i class="mdi mdi-human"></i></button>
               <button class="btn btn-info" :disabled="event.capacity == 0" v-else>
-                NO MORE TICKETS <i class="mdi mdi-human-walker"></i></button>
+                NO MORE TICKETS <i class="mdi mdi-human-walker" aria-label="No More Tickets"></i></button>
             </div>
           </div>
         </div>
@@ -66,10 +76,6 @@ export default {
       type: Object,
       required: true
     },
-    tickets: {
-      type: Object,
-      required: true
-    }
   },
   setup() {
     const route = useRoute()
@@ -109,6 +115,13 @@ export default {
   display: block;
   transform: scale(0);
   transition: all 0.15s linear;
+}
+
+.text-shadow {
+  color: aliceblue;
+  text-shadow: 1px 1px black, 0px 0px 5px rgb(83, 83, 83);
+  font-weight: bold;
+  letter-spacing: 0.08rem
 }
 
 .event-text {

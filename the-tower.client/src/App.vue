@@ -14,7 +14,7 @@
         <router-view />
       </div>
       <!-- TODO make the background to the transparent thing -->
-      <div class="col-lg-1 pt-5 nav-component bg-secondary">
+      <div class="col-lg-1 pt-5 nav-component">
         <Navbar />
       </div>
     </div>
@@ -48,8 +48,8 @@ export default {
 
 .nav-component {
   height: 100vh;
-  // background: rgb(58, 60, 66);
-  // background: linear-gradient(180deg, rgba(58, 60, 66, 0.975) 29%, rgba(58, 60, 66, 0.8714285714285714) 66%, rgba(58, 60, 66, 0.6857142857142857) 100%);
+  background: rgb(71, 76, 97);
+  background: linear-gradient(180deg, rgba(71, 76, 97, 0.9643387815750372) 29%, rgba(71, 76, 97, 0.5393759286775632) 66%, rgba(71, 76, 97, 0.09806835066864783) 100%);
 }
 
 .tower-img {

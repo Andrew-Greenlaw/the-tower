@@ -6,16 +6,20 @@
       </div>
     </div>
     <div class="col-md-12">
-      <div>
-        <!-- TODO get search function to not explode -->
-        <!-- <input type="text" class="form-control" placeholder="Search..." v-model="editable"> -->
-      </div>
-      <div class="d-flex justify-content-around">
-        <button @click="getEventsByType('')" class="btn btn-success">All</button>
-        <button @click="getEventsByType('concert')" class="btn btn-success">Concert</button>
-        <button @click="getEventsByType('convention')" class="btn btn-success">Convention</button>
-        <button @click="getEventsByType('sport')" class="btn btn-success">Sport</button>
-        <button @click="getEventsByType('digital')" class="btn btn-success">Digital</button>
+      <!-- <div> -->
+      <!-- TODO get search function to not explode -->
+      <!-- <input type="text" class="form-control" placeholder="Search..." v-model="editable"> -->
+      <!-- </div> -->
+      <div class="d-flex justify-content-around bg-secondary my-4 p-2 rounded">
+        <button @click="getEventsByType('')" class="btn text-light selectable" aria-label="Filter by All">All</button>
+        <button @click="getEventsByType('concert')" class="btn text-light selectable"
+          aria-label="Filter by Concert ">Concert</button>
+        <button @click="getEventsByType('convention')" class="btn text-light selectable"
+          aria-label="Filter by Convention">Convention</button>
+        <button @click="getEventsByType('sport')" class="btn text-light selectable"
+          aria-label="Filter by Sport">Sport</button>
+        <button @click="getEventsByType('digital')" class="btn text-light selectable"
+          aria-label="Filter by Digital ">Digital</button>
       </div>
     </div>
   </div>
