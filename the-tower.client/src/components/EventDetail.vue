@@ -53,7 +53,7 @@
                   class="mdi mdi-human-greeting"></i></button>
               <button class="btn btn-danger" disabled v-else-if="hasTicket" aria-label="You are Allready Attending">You
                 are Attending <i class="mdi mdi-human"></i></button>
-              <button class="btn btn-info" :disabled="event.capacity == 0" v-else>
+              <button class="btn btn-info" disabled v-else>
                 NO MORE TICKETS <i class="mdi mdi-human-walker" aria-label="No More Tickets"></i></button>
             </div>
           </div>
