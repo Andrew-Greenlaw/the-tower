@@ -4,7 +4,7 @@ import { ticketsService } from "./TicketsService.js"
 
 class EventsService {
   async getAllEvents(query) {
-    const events = await dbContext.Events.find({ isCanceled: false, ...query }).populate('creator', 'name picture')
+    const events = await dbContext.Events.find({ ...query }).populate('creator', 'name picture')
     return events
   }
   async createEvent(eventData) {
